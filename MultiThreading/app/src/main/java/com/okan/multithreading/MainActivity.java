@@ -2,6 +2,7 @@ package com.okan.multithreading;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 
 import android.os.Bundle;
 import android.view.Choreographer;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements
     private PresentationCompositionRoot mPresentationCompositionRoot;
     private ScreensNavigator mScreensNavigator;
 
-    private ImageButton mBtnBack;
+    private AppCompatImageButton mBtnBack;
     private TextView mTxtScreenTitle;
 
     @Override

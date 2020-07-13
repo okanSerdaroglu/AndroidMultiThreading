@@ -1,6 +1,8 @@
 package com.okan.multithreading.common;
 
+import com.okan.multithreading.exercises.exercise1.Exercise1Fragment;
 import com.okan.multithreading.home.HomeFragment;
+import com.okan.multithreading.solutions.SolutionExercise1Fragment;
 import com.techyourchance.fragmenthelper.FragmentHelper;
 
 
@@ -25,7 +27,8 @@ public class ScreensNavigator {
     }
 
     public void toExercise1Screen() {
-        //mFragmentHelper.replaceFragment(Exercise1Fragment.newInstance());
+       // mFragmentHelper.replaceFragment(Exercise1Fragment.newInstance());
+        mFragmentHelper.replaceFragment(SolutionExercise1Fragment.newInstance());
     }
 
     public void toExercise2Screen() {
