@@ -1,0 +1,36 @@
+
+** Instantiating New Threads
+
+        * First way
+        public class MyThread extends Thread {
+
+            private final int mSeed;
+
+            public MyThread (int seed){
+               mSeed = seed;
+            }
+
+            @Override
+            public void run(){
+               // perform some calculation
+            }
+        }
+
+        Thread thread = new MyThread(10);
+        thread.start();
+
+        ------------------
+        * Second way
+        Runnable runnable = new Runnable (){
+           @Override
+           public void run (){
+               int seed = 10;
+               // perform some calculation
+           }
+        }
+
+        Thread thread = new Thread (runnable)
+        thread.start();
+
+
+**
