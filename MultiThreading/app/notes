@@ -54,3 +54,100 @@
       }
 
    this causes memory leak in MainActivity.
+
+** Thread Termination Strategies
+
+   1. Return from run() after successful execution
+
+            class MainActivity extends AppCompatActivity {
+
+            private FetchItemsEndpoint mFetchItemsEndpoint;
+            private itemsDao mItemsDao;
+
+                onCreate(){
+                   new Thread(new Runnable()) {
+                      @Override
+                      public void run(){
+                         List <Item> items = mFetchItemsEndpoint.fetch();
+                         mItemsDao.insertItems(items)
+                      }
+                   }.start();
+                }
+            }
+
+        Anonymous Thread can access Activity's fields because it has implicit
+        reference to the enclosing object.
+
+   2. Return from run() in response to internal error
+
+      class MainActivity extends AppCompatActivity {
+
+              private FetchItemsEndpoint mFetchItemsEndpoint;
+              private itemsDao mItemsDao;
+
+                  onCreate(){
+                     new Thread(new Runnable()) {
+                        @Override
+                        public void run(){
+                           List <Item> items;
+                           try{
+                              items = mFetchItemsEndpoint.fetch();
+                           } catch(IOException e){
+                               return;
+                           }
+                           mItemsDao.insertItems(items)
+                        }
+                     }.start();
+                  }
+              }
+
+        When you return in an error there is no problem for memory leak.
+
+   3. Return from run() in response to externally set flag
+
+        class MainActivity extends AppCompatActivity {
+
+                      private FetchItemsEndpoint mFetchItemsEndpoint;
+                      private itemsDao mItemsDao;
+                      private AtomicBoolean mFetchAborted = new AtomicBoolean(false);
+
+                          onCreate(){
+                             new Thread(new Runnable()) {
+                                @Override
+                                public void run(){
+                                   List <Item> items = mFetchItemsEndpoint.fetch();
+                                   if (mFetchAborted.get()){
+                                      return;
+                                   }
+                                   mItemsDao.insertItems(items)
+                                }
+                             }.start();
+                          }
+                      }
+
+   4. Return from run() in response to interruption
+
+         class MainActivity extends AppCompatActivity {
+
+                      private FetchItemsEndpoint mFetchItemsEndpoint;
+                      private itemsDao mItemsDao;
+                      private Thread thread;
+
+                          onCreate(){
+                             thread = new Thread(new Runnable()) {
+                                @Override
+                                public void run(){
+                                   List <Item> items = mFetchItemsEndpoint.fetch();
+                                   if (thread.interrupted()){
+                                      return;
+                                   }
+                                   mItemsDao.insertItems(items)
+                                }
+                             }
+                             thread.start();
+                          }
+                      }
+
+         - to interrupt a thread from outside, we need to have a reference to it
+         - thread interruption might look like externally set flag, but
+           it is much more nuanced and complex mechanism
