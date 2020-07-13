@@ -33,4 +33,24 @@
         thread.start();
 
 
-**
+** Important roots in android application (Memory leak)
+
+   1. Objects referenced from static fields
+   2. Instances of Application class
+   3. Live threads
+
+   Anonymous Threads
+   if you use a Thread with no name like this
+
+      class MainActivity extends AppCompatActivity {
+          onCreate(){
+             new Thread(new Runnable()) {
+                @Override
+                public void run(){
+
+                }
+             }.start();
+          }
+      }
+
+   this causes memory leak in MainActivity.
