@@ -151,3 +151,14 @@
          - to interrupt a thread from outside, we need to have a reference to it
          - thread interruption might look like externally set flag, but
            it is much more nuanced and complex mechanism
+
+** UI Thread Characteristics 
+
+    1. Started by Android Framework when application start
+    2. Terminated only when application's process terminates
+    3. Application's user interface is "drawn" on UI thread
+    4. Lifecycle callbacks (e.g onStart(),onStop()) are executed on UI thread
+    5. User interaction event handlers (e.g onClick()) are executed on UI thread
+    6. Changes of user interface must be performed on UI thread
+
+
