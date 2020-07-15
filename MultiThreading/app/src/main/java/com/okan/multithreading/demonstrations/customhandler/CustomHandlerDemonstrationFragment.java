@@ -84,10 +84,7 @@ public class CustomHandlerDemonstrationFragment extends BaseFragment {
 
     private class CustomHandler {
 
-        private final Runnable POISON = new Runnable() {
-            @Override
-            public void run() {}
-        };
+        private final Runnable POISON = () -> {};
 
         private final BlockingQueue<Runnable> mQueue = new LinkedBlockingQueue<>();
 

@@ -1,4 +1,4 @@
-package com.okan.multithreading.solutions.solution1;
+package com.okan.multithreading.solutions.exercise1;
 
 import android.os.Bundle;
 import android.util.Log;

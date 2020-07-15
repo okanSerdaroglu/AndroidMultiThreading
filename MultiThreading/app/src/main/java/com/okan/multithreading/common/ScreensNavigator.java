@@ -1,10 +1,11 @@
 package com.okan.multithreading.common;
 
+import com.okan.multithreading.demonstrations.customhandler.CustomHandlerDemonstrationFragment;
 import com.okan.multithreading.demonstrations.uihandler.UiHandlerDemonstrationFragment;
 import com.okan.multithreading.demonstrations.uithread.UiThreadDemonstrationFragment;
 import com.okan.multithreading.exercises.exercise2.Exercise2Fragment;
 import com.okan.multithreading.home.HomeFragment;
-import com.okan.multithreading.solutions.solution1.SolutionExercise1Fragment;
+import com.okan.multithreading.solutions.exercise1.SolutionExercise1Fragment;
 import com.techyourchance.fragmenthelper.FragmentHelper;
 
 
@@ -46,7 +47,7 @@ public class ScreensNavigator {
     }
 
     public void toCustomHandlerDemonstration() {
-        //mFragmentHelper.replaceFragment(CustomHandlerDemonstrationFragment.newInstance());
+        mFragmentHelper.replaceFragment(CustomHandlerDemonstrationFragment.newInstance());
     }
 
     public void toExercise3Screen() {
