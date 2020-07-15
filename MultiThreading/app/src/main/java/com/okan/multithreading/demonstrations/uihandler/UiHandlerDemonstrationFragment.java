@@ -53,27 +53,21 @@ public class UiHandlerDemonstrationFragment extends BaseFragment {
     }
 
     private void countIterations() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                long startTimestamp = System.currentTimeMillis();
-                long endTimestamp = startTimestamp + ITERATIONS_COUNTER_DURATION_SEC * 1000;
+        new Thread(() -> {
+            long startTimestamp = System.currentTimeMillis();
+            long endTimestamp = startTimestamp + ITERATIONS_COUNTER_DURATION_SEC * 1000;
 
-                int iterationsCount = 0;
-                while (System.currentTimeMillis() <= endTimestamp) {
-                    iterationsCount++;
-                }
-
-                final int iterationsCountFinal = iterationsCount;
-
-                mUiHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d("UiHandler", "Current thread: " + Thread.currentThread().getName());
-                        mBtnCountIterations.setText("Iterations: " + iterationsCountFinal);
-                    }
-                });
+            int iterationsCount = 0;
+            while (System.currentTimeMillis() <= endTimestamp) {
+                iterationsCount++;
             }
+
+            final int iterationsCountFinal = iterationsCount;
+
+            mUiHandler.post(() -> {
+                Log.d("UiHandler", "Current thread: " + Thread.currentThread().getName());
+                mBtnCountIterations.setText("Iterations: " + iterationsCountFinal);
+            });
         }).start();
     }
 }
