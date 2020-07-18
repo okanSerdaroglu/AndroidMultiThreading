@@ -228,6 +228,7 @@ You need yo ensure "thread-safety"
 Thread Safety Concerns
 
    Visibility
+   When a variable volatile this means that read and write it from directly memory.
 
    Atomicity
    When you make read, modify and write operation for a value in a thread,

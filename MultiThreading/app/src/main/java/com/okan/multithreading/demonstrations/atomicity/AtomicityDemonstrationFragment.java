@@ -35,6 +35,7 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
     private Handler mUiHandler = new Handler(Looper.getMainLooper());
 
     private volatile int mCount;
+    // volatile means that it is visible for all threads
 
     @Nullable
     @Override
