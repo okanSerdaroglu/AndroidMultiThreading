@@ -230,6 +230,9 @@ Thread Safety Concerns
    Visibility
 
    Atomicity
+   When you make read, modify and write operation for a value in a thread,
+   you don't have to access this value from another thread. That is the key concept.
+   No other thread should allowed the access the variable.
 
    Happens Before
 

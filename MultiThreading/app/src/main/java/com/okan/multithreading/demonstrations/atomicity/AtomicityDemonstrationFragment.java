@@ -44,12 +44,7 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
         mTxtFinalCount = view.findViewById(R.id.txt_final_count);
 
         mBtnStartCount = view.findViewById(R.id.btn_start_count);
-        mBtnStartCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCount();
-            }
-        });
+        mBtnStartCount.setOnClickListener(v -> startCount());
 
         return view;
     }
@@ -78,22 +73,16 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
             startCountThread();
         }
 
-        mUiHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mTxtFinalCount.setText(String.valueOf(mCount));
-                mBtnStartCount.setEnabled(true);
-            }
+        mUiHandler.postDelayed(() -> {
+            mTxtFinalCount.setText(String.valueOf(mCount));
+            mBtnStartCount.setEnabled(true);
         }, NUM_OF_COUNTER_THREADS * 20);
     }
 
     private void startCountThread() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < COUNT_UP_TO; i++) {
-                    mCount++;
-                }
+        new Thread(() -> {
+            for (int i = 0; i < COUNT_UP_TO; i++) {
+                mCount++;
             }
         }).start();
     }
