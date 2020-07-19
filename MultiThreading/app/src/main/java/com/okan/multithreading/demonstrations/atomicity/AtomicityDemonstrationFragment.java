@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import com.okan.multithreading.R;
 import com.okan.multithreading.common.BaseFragment;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 @SuppressLint("SetTextI18n")
 public class AtomicityDemonstrationFragment extends BaseFragment {
@@ -34,12 +36,14 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
 
     private Handler mUiHandler = new Handler(Looper.getMainLooper());
 
-    private volatile int mCount;
+    //private volatile int mCount;
+    private volatile AtomicInteger mCount = new AtomicInteger(0);
     // volatile means that it is visible for all threads
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_atomicity_demonstration, container, false);
 
         mTxtFinalCount = view.findViewById(R.id.txt_final_count);
@@ -66,7 +70,7 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
     }
 
     private void startCount() {
-        mCount = 0;
+        //mCount = 0;
         mTxtFinalCount.setText("");
         mBtnStartCount.setEnabled(false);
 
@@ -83,7 +87,8 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
     private void startCountThread() {
         new Thread(() -> {
             for (int i = 0; i < COUNT_UP_TO; i++) {
-                mCount++;
+                //mCount++;
+
             }
         }).start();
     }

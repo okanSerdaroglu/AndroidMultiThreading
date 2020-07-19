@@ -237,3 +237,18 @@ Thread Safety Concerns
 
    Happens Before
 
+** Atomic Classes
+
+private volatile int mCount; not thread safe // STEP 1
+private volatile AtomicInteger mCount = new AtomicInteger(0); // STEP 2
+
+new Thread(() -> {
+for (int i = 0; i < COUNT_UP_TO; i++) {
+
+mCount++; // not thread safe and does not guarantee
+mCount.incrementAndGet(); // thread safe and guarantees
+}
+}).start();
+
+
+
